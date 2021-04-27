@@ -13,4 +13,26 @@
  * @returns {boolean} - deberia retornar true o false.
  */
 
-function BinaryToDecimal(binary, base) {}
+function BinaryToDecimal(binary, base) {
+  let total = 0;
+  for (let p = binary.length - 1; p >= 0; p--) {
+    const num = hexaNumber(binary[p]);
+
+    total += num * Math.pow(base, binary.length - 1 - p);
+  }
+
+  return total;
+}
+
+function hexaNumber(n) {
+  const dicc = {
+    a: 10,
+    b: 11,
+    c: 12,
+    d: 13,
+    e: 14,
+    f: 15,
+  };
+
+  return dicc[n] ? dicc[n] : n;
+}
