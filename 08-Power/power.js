@@ -8,4 +8,7 @@
  * @returns {Array || undefined} - deberia retornar un array o undefined.
  */
 
-function power(base, exp) {}
+function power(base, exp) {
+    return base ** exp;
+}
+console.log(power(2,3));
