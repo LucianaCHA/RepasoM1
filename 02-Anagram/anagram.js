@@ -12,4 +12,10 @@
  * @returns {boolean} - deberia retornar true o false.
  */
 
-function validAnagram(first, second) {}
+function validAnagram(first, second) {
+    //igualo a lowCase, convierto en array para ordenar con sort, vuelve a unir en string y comparo
+    return first.toUpperCase().split('').sort().join('') === second.toUpperCase().split('').sort().join('') ? true : false;
+}
+// console.log('Cinema'.toUpperCase().split('').sort());
+// console.log('Iceman'.toUpperCase().split('').sort())
+// console.log(validAnagram('cinema', 'Iceman'))
