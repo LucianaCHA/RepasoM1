@@ -6,5 +6,10 @@
  * @param {String} str - esto es un string.
  * @returns {String} - deberia retornar un string.
  */
-
-function isPalindrome(str) {}
+function isPalindrome(str) {
+    if(str.split('').reverse().join('') === str){
+        return true;
+    }
+    return false;
+}
+console.log(isPalindrome('alja'));
