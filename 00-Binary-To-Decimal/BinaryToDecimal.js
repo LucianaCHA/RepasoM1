@@ -13,4 +13,14 @@
  * @returns {boolean} - deberia retornar true o false.
  */
 
-function BinaryToDecimal(binary, base) {}
+function BinaryToDecimal(binary, base) {
+    let decimal = 0;
+    for(let i = 0; i < binary.split('').reverse().length; i++){
+        decimal += binary.split('').reverse()[i]*Math.pow(base, i);
+    }
+    return decimal;
+}
+let num= '1011';
+console.log(num.split('').reverse());
+console.log(BinaryToDecimal(num,2))
+console.log(BinaryToDecimal('1023',8))//cambando la base pasa a decimal cualquier base

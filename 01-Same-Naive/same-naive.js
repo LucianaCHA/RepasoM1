@@ -9,4 +9,12 @@
  * @returns {boolean} - deberia retornar true o false.
  */
 
-function same(arr1, arr2) {}
+function same(arr1, arr2) {
+    for(let i = 0; i < arr1.length; i++){
+        if(Math.sqrt(arr1[i])!== arr2[i]){
+            return false;
+        }        
+    }
+    return true;
+}
+console.log(same([4,9,16,25], [2,3,4,5]));
