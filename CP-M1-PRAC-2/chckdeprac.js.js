@@ -26,7 +26,7 @@ const { Queue, LinkedList, Node, BinarySearchTree } = require("./DS.js");
 // > sqrt(4); --> 4 * 4
 // < 16
 function exponencial(exp) {
-  return function(base){
+  return function (base) {
     return Math.pow(base, exp)
   }
 }
@@ -64,20 +64,20 @@ function exponencial(exp) {
 // haciendo los movimientos SUR->ESTE->NORTE
 // Aclaraciones: el segundo parametro que recibe la funcion ('direccion') puede ser pasado vacio (null)
 function direcciones(laberinto, direccion = "") {
-  if(!laberinto) return '';
+  if (!laberinto) return '';
 
-  for(let cardinal in laberinto){
-    if(laberinto[cardinal] === 'destino'){
+  for (let cardinal in laberinto) {
+    if (laberinto[cardinal] === 'destino') {
       return direccion += cardinal;
-      
-    }else if( typeof(laberinto[cardinal]) === "object"){
+
+    } else if (typeof (laberinto[cardinal]) === "object") {
       direccion += cardinal;
-     return direcciones(laberinto[cardinal], direccion);
+      return direcciones(laberinto[cardinal], direccion);
     }
-    }
+  }
   return '';
 }
-direcciones({R:0, F: 'hola', S:{N:{a: 'destino'}}}, direccion = "")
+direcciones({ R: 0, F: 'hola', S: { N: { a: 'destino' } } }, direccion = "")
 // EJERCICIO 3
 // Crea la funcion 'deepEqualArrays':
 // Dado que las comparaciones en javascript aveces son un problema como con el siguiente ejemplo:
@@ -151,22 +151,22 @@ OrderedLinkedList.prototype.print = function () {
 // > LL.add(4)
 // > LL.print()
 // < 'head --> 6 --> 5--> 4 null' quiero add 5
-         // p----c---cn
+// p----c---cn
 
 OrderedLinkedList.prototype.add = function (val) {
-  if(!this.head){
+  if (!this.head) {
     this.head = new Node(val);
   }
-  if(this.head.value < val){
-    let aux= this.head;
+  if (this.head.value < val) {
+    let aux = this.head;
     this.head = new Node(val);
     this.head.next = aux;
   }
   let current = this.head
-  while(current.next && current.next.value > val){
+  while (current.next && current.next.value > val) {
     current = current.next;
   }
-  if(current.value > val){
+  if (current.value > val) {
     let aux = current.next;
     current.next = new Node(val);
     current.next.next = aux;
@@ -189,10 +189,10 @@ OrderedLinkedList.prototype.add = function (val) {
 // < null
 
 OrderedLinkedList.prototype.removeHigher = function () {
-  if(!this.head){
+  if (!this.head) {
     return null
   }
-  if(!this.head.next){
+  if (!this.head.next) {
     let removed = this.head.value;
     this.head = null;
     return removed;
@@ -218,16 +218,16 @@ OrderedLinkedList.prototype.removeHigher = function () {
 // < null
 
 OrderedLinkedList.prototype.removeLower = function () {
-  if(!this.head){
+  if (!this.head) {
     return null;
   }
-  if(!this.head.next){
+  if (!this.head.next) {
     let removed = this.head.value;
     this.head = null;
     return removed;
   }
   let current = this.head;
-  while(current.next.next){
+  while (current.next.next) {
     current = current.next;
   }
   let removed = current.next.value;
@@ -267,13 +267,13 @@ function multiCallbacks(cbs1, cbs2) {
   // lo ordenamos por tiempo, le pasamos dos variables que nos ayudaran a ordenarlo por tiempo -->
   // map te devuelve un array de la misma longitud anterior. Recibe una funcion -->
   let arr = cbs1.concat(cbs2); //[cbs1, cbs2]
-  var sorted = arr.sort(function(a,b){
-    if(a.time < b.time) return -1;
-    if(a.time > b.time) return 1;
+  var sorted = arr.sort(function (a, b) {
+    if (a.time < b.time) return -1;
+    if (a.time > b.time) return 1;
 
-    return 0; 
-  }) 
-    return sorted.map(function (a){return a.cb()});
+    return 0;
+  })
+  return sorted.map(function (a) { return a.cb() });
   // for(let i = 0; i < arr.length; i++){
   //   let min = arr[i].time;
   //   for(let j = 0; j < arr.length; j++){
@@ -282,9 +282,9 @@ function multiCallbacks(cbs1, cbs2) {
   //       sorted.push(arr[j].cb());
   //     }
 
-    }
-      
-    
+}
+
+
 
 // ----- BST -----
 
@@ -299,7 +299,14 @@ function multiCallbacks(cbs1, cbs2) {
 // 5   9
 // resultado:[5,8,9,32,64]
 
-BinarySearchTree.prototype.toArray = function () {};
+BinarySearchTree.prototype.toArray = function () {
+  let data = [];
+  function push(value) {
+    data.push(value);
+  }
+  this.depthFirstForEach(push,);
+  return data;
+};
 
 // ----- Algoritmos -----
 
@@ -314,14 +321,40 @@ BinarySearchTree.prototype.toArray = function () {};
 // Si bien esta no es la mejor implementacion existente, con que uds puedan
 // informarse sobre algoritmos, leerlos de un pseudocodigo e implemnterlos alcanzara
 
-function primalityTest(num) {}
+function primalityTest(num) {
+  if (num < 2) { return false }
+  for (let i = 2; i <= Math.floor(Math.sqrt(num)); i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+}
 
 // EJERCICIO 10
 // Implementa el algoritmo conocido como 'quickSort', que dado un arreglo de elemntos
 // retorn el mismo ordenado de 'mayor a menor!'
 // https://en.wikipedia.org/wiki/Quicksort
 
-function quickSort(array) {}
+function quickSort(array) {
+  if (array <= 1) { return array }
+  let equals = [];
+  let minors = [];
+  let biggers = [];
+
+  let pivot = array[Math.floor(array.length / 2)];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] < pivot) {
+      minors.push(array[i]);
+    } else if (array[i] === pivot) {
+      equals.push(array[i]);
+    } else {
+      biggers.push(array[i]);
+    }
+  }
+  return quickSort(biggers).concat(equals).concat(quickSort(minors))
+
+}
 
 // ----- EXTRA CREDIT -----
 
@@ -335,7 +368,10 @@ function quickSort(array) {}
 // > reverse(95823);
 // < 32859
 
-function reverse(num, lastNum = 0) {}
+function reverse(num, lastNum = 0) {
+
+
+}
 
 module.exports = {
   exponencial,
